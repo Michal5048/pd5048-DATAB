@@ -1,0 +1,128 @@
+**Schema (MySQL v5.7)**
+
+    CREATE TABLE patients (
+        id INT PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        date_of_birth DATE NOT NULL,
+        email VARCHAR(255),
+        phone_number VARCHAR(20),
+        weight DECIMAL(5,2),
+        height INT
+    );
+    
+    INSERT INTO patients (id, name, date_of_birth, email, phone_number, weight, height) VALUES
+    (1, 'John Doe', '1985-06-15', 'john.doe@gmail.com', '1234567890', 72.50, 180),
+    (2, 'Jane Smith', '1990-02-20', 'jane.smith@gmail.com', '2345678901', 60.00, 165),
+    (3, 'James Brown', '1978-11-05', 'james.brown@gmail.com', '3456789012', 85.00, 175),
+    (4, 'Emily Davis', '1995-08-12', 'emily.davis@gmail.com', '4567890123', 68.00, 170);
+    
+    
+
+---
+
+**Query #1**
+
+    SELECT * FROM patients;
+
+| id  | name        | date_of_birth | email                 | phone_number | weight | height |
+| --- | ----------- | ------------- | --------------------- | ------------ | ------ | ------ |
+| 1   | John Doe    | 1985-06-15    | john.doe@gmail.com    | 1234567890   | 72.50  | 180    |
+| 2   | Jane Smith  | 1990-02-20    | jane.smith@gmail.com  | 2345678901   | 60.00  | 165    |
+| 3   | James Brown | 1978-11-05    | james.brown@gmail.com | 3456789012   | 85.00  | 175    |
+| 4   | Emily Davis | 1995-08-12    | emily.davis@gmail.com | 4567890123   | 68.00  | 170    |
+
+---
+**Query #2**
+
+    
+    
+    SELECT * FROM patients
+    WHERE weight > 65;
+
+| id  | name        | date_of_birth | email                 | phone_number | weight | height |
+| --- | ----------- | ------------- | --------------------- | ------------ | ------ | ------ |
+| 1   | John Doe    | 1985-06-15    | john.doe@gmail.com    | 1234567890   | 72.50  | 180    |
+| 3   | James Brown | 1978-11-05    | james.brown@gmail.com | 3456789012   | 85.00  | 175    |
+| 4   | Emily Davis | 1995-08-12    | emily.davis@gmail.com | 4567890123   | 68.00  | 170    |
+
+---
+**Query #3**
+
+    
+    
+    SELECT * FROM patients
+    ORDER BY height DESC;
+
+| id  | name        | date_of_birth | email                 | phone_number | weight | height |
+| --- | ----------- | ------------- | --------------------- | ------------ | ------ | ------ |
+| 1   | John Doe    | 1985-06-15    | john.doe@gmail.com    | 1234567890   | 72.50  | 180    |
+| 3   | James Brown | 1978-11-05    | james.brown@gmail.com | 3456789012   | 85.00  | 175    |
+| 4   | Emily Davis | 1995-08-12    | emily.davis@gmail.com | 4567890123   | 68.00  | 170    |
+| 2   | Jane Smith  | 1990-02-20    | jane.smith@gmail.com  | 2345678901   | 60.00  | 165    |
+
+---
+
+[View on DB Fiddle](https://www.db-fiddle.com/)
+
+
+
+**Schema (MySQL v5.7)**
+
+    CREATE TABLE patients (
+        id INT PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        date_of_birth DATE NOT NULL,
+        email VARCHAR(255),
+        phone_number VARCHAR(20),
+        weight DECIMAL(5,2),
+        height INT
+    );
+    
+    INSERT INTO patients (id, name, date_of_birth, email, phone_number, weight, height) VALUES
+    (1, 'John Doe', '1985-06-15', 'john.doe@gmail.com', '1234567890', 72.50, 180),
+    (2, 'Jane Smith', '1990-02-20', 'jane.smith@gmail.com', '2345678901', 60.00, 165),
+    (3, 'James Brown', '1978-11-05', 'james.brown@gmail.com', '3456789012', 85.00, 175),
+    (4, 'Emily Davis', '1995-08-12', 'emily.davis@gmail.com', '4567890123', 68.00, 170);
+    
+    UPDATE patients
+    SET email = 'john.updated@gmail.com'
+    WHERE id = 1;
+    
+    DELETE FROM patients
+    WHERE id = 3;
+    
+    ALTER TABLE patients
+    ADD blood_type CHAR(3);
+    
+    UPDATE patients SET blood_type = '0+'  WHERE id = 1;
+    UPDATE patients SET blood_type = 'AB+' WHERE id = 2;
+    UPDATE patients SET blood_type = 'B+'  WHERE id = 4;
+
+---
+
+**Query #1**
+
+    SELECT * FROM patients;
+
+| id  | name        | date_of_birth | email                  | phone_number | weight | height | blood_type |
+| --- | ----------- | ------------- | ---------------------- | ------------ | ------ | ------ | ---------- |
+| 1   | John Doe    | 1985-06-15    | john.updated@gmail.com | 1234567890   | 72.50  | 180    | 0+         |
+| 2   | Jane Smith  | 1990-02-20    | jane.smith@gmail.com   | 2345678901   | 60.00  | 165    | AB+        |
+| 4   | Emily Davis | 1995-08-12    | emily.davis@gmail.com  | 4567890123   | 68.00  | 170    | B+         |
+
+---
+**Query #2**
+
+    
+    
+    SELECT * FROM patients
+    LIMIT 2 OFFSET 1;
+
+| id  | name        | date_of_birth | email                 | phone_number | weight | height | blood_type |
+| --- | ----------- | ------------- | --------------------- | ------------ | ------ | ------ | ---------- |
+| 2   | Jane Smith  | 1990-02-20    | jane.smith@gmail.com  | 2345678901   | 60.00  | 165    | AB+        |
+| 4   | Emily Davis | 1995-08-12    | emily.davis@gmail.com | 4567890123   | 68.00  | 170    | B+         |
+
+---
+
+[View on DB Fiddle](https://www.db-fiddle.com/)
